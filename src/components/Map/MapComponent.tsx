@@ -3,24 +3,29 @@ import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import { Ship } from '../../types/ship';
 import 'leaflet/dist/leaflet.css';
 import { Icon } from 'leaflet';
+import shipIcon from '../../assets/ship-icon.svg';
 
-// Fix for default marker icons
-import icon from 'leaflet/dist/images/marker-icon.png';
-import iconShadow from 'leaflet/dist/images/marker-shadow.png';
-import iconRetina from 'leaflet/dist/images/marker-icon-2x.png';
 
 interface MapComponentProps {
   ships: Ship[];
   center: { lat: number; lng: number };
 }
 
-const DefaultIcon = new Icon({
-  iconUrl: icon,
-  iconRetinaUrl: iconRetina,
-  shadowUrl: iconShadow,
-  iconSize: [25, 41],
-  iconAnchor: [12, 41]
+const ShipIcon = new Icon({
+  iconUrl: shipIcon,
+  iconSize: [24, 24],
+  iconAnchor: [12, 12],
+  popupAnchor: [0, -12],
+  className: 'ship-marker'
 });
+
+// Add CSS to rotate icon based on ship heading
+const getRotatedIcon = (heading: number) => {
+  return new Icon({
+    ...ShipIcon.options,
+    className: `ship-marker rotate-${Math.round(heading)}`
+  });
+};
 
 const MapComponent = ({ ships, center }: MapComponentProps) => {
   const [selectedShip, setSelectedShip] = useState<Ship | null>(null);
@@ -55,7 +60,7 @@ const MapComponent = ({ ships, center }: MapComponentProps) => {
           <Marker
             key={ship.id}
             position={[ship.latitude!, ship.longitude!]}
-            icon={DefaultIcon}
+            icon={getRotatedIcon(ship.heading)}
             eventHandlers={{
               click: () => onMarkerClick(ship),
             }}
