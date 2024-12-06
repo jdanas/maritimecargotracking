@@ -1,5 +1,4 @@
 import { Ship } from '../../types/ship';
-import { format } from 'date-fns';
 import { ShipStatus } from './ShipStatus';
 import { ShipDetails } from './ShipDetails';
 

@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { Ship } from '../types/ship';
 
 // Mock data for demonstration
