@@ -28,7 +28,7 @@ const mockShips: Ship[] = [
     status: 'underway',
     latitude: 25.7617,
     longitude: -80.1918,
-    mmsi: ''
+    mmsi: '311906000'
   },
   {
     id: '2',
@@ -42,7 +42,7 @@ const mockShips: Ship[] = [
     status: 'anchored',
     latitude: 25.8717,
     longitude: -80.1318,
-    mmsi: ''
+    mmsi: '325913002'
   }
 ];
 
