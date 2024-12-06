@@ -1,5 +1,5 @@
 import { useCallback, useState } from 'react';
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
 import { Ship } from '../../types/ship';
 import 'leaflet/dist/leaflet.css';
 import { Icon } from 'leaflet';
@@ -27,6 +27,13 @@ const getRotatedIcon = (heading: number) => {
   });
 };
 
+function MapUpdater({ center }: { center: { lat: number; lng: number } }) {
+  const map = useMap();
+  map.flyTo([center.lat, center.lng], 12);
+  return null;
+}
+
+
 const MapComponent = ({ ships, center }: MapComponentProps) => {
   const [selectedShip, setSelectedShip] = useState<Ship | null>(null);
 
@@ -50,6 +57,7 @@ const MapComponent = ({ ships, center }: MapComponentProps) => {
       zoom={10}
       style={{ height: '600px', width: '100%' }}
     >
+      <MapUpdater center={center} />
       <TileLayer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
