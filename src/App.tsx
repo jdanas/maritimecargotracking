@@ -13,10 +13,10 @@ function App() {
       const data = await getShips();
       setShips(data);
     };
-
+  
     fetchShips();
-    // In a real application, you would set up a WebSocket or polling here
-    const interval = setInterval(fetchShips, 30000);
+    // Update every 2 seconds for visible movement
+    const interval = setInterval(fetchShips, 2000);
     return () => clearInterval(interval);
   }, []);
 

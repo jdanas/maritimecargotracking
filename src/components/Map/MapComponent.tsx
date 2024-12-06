@@ -78,6 +78,9 @@ const MapComponent = ({ ships, center }: MapComponentProps) => {
                 <div>
                   <h3>{ship.name}</h3>
                   <p>MMSI: {ship.mmsi}</p>
+                  <p>Speed: {ship.speed} knots</p>
+                  <p>Heading: {ship.heading}°</p>
+                  <p>Last Updated: {new Date(ship.timestamp).toLocaleTimeString()}</p>
                 </div>
               </Popup>
             )}

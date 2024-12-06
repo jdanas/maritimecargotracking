@@ -1,5 +1,19 @@
 import { Ship } from '../types/ship';
 
+const generateNewPosition = (ship: Ship) => {
+  // Simulate ship movement based on heading and speed
+  // ~0.00001 degree ≈ 1.1m, multiply by speed for movement scale
+  const movementScale = 0.00001 * ship.speed;
+  
+  // Convert heading to radians
+  const headingRad = (ship.heading * Math.PI) / 180;
+  
+  return {
+    latitude: ship.latitude + (Math.cos(headingRad) * movementScale),
+    longitude: ship.longitude + (Math.sin(headingRad) * movementScale)
+  };
+};
+
 // Mock data for demonstration
 const mockShips: Ship[] = [
   {
@@ -32,8 +46,21 @@ const mockShips: Ship[] = [
   }
 ];
 
+let simulatedShips = [...mockShips];
+
 export const getShips = async (): Promise<Ship[]> => {
-  // In a real application, you would fetch from an API
-  // return axios.get<Ship[]>('/api/ships').then(response => response.data);
-  return Promise.resolve(mockShips);
+  // Update positions
+  simulatedShips = simulatedShips.map(ship => {
+    const newPos = generateNewPosition(ship);
+    return {
+      ...ship,
+      latitude: newPos.latitude,
+      longitude: newPos.longitude,
+      position: { lat: newPos.latitude, lng: newPos.longitude },
+      timestamp: new Date().toISOString()
+    };
+  });
+  
+  return simulatedShips;
 };
+
