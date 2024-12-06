@@ -81,6 +81,7 @@ const MapComponent = ({ ships, center }: MapComponentProps) => {
                   <p>Speed: {ship.speed} knots</p>
                   <p>Heading: {ship.heading}°</p>
                   <p>Last Updated: {new Date(ship.timestamp).toLocaleTimeString()}</p>
+                  <p>Coordinates: lat {ship.latitude} lng {ship.longitude}</p>
                 </div>
               </Popup>
             )}
